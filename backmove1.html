@@ -1,0 +1,33 @@
+<html>
+<body bgcolor='black'>
+<img src='back2.png' style='position:absolute;opacity:1;box-shadow:5px 5px 5px rgb(0,0,0,0,6);width:100%;' id='bac'>
+<img src='back2.png' style='position:absolute;opacity:1' id='back1'>
+
+
+<img src='back3.png' style='position:absolute;width:100%;'>
+<script>
+var anime=window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+							 var t=20; var t1=100;var x=0;
+							 function run()
+							 {
+							 if(x<1)
+							// x+=0.03;
+							 t+=1;t1+=1;
+							// var y=document.getElementById('back2').style;
+							 //y.width=t+'%';
+							 //y.left=50-t/2+'%';
+							// y.opacity=x;
+							var y=document.getElementById('back1').style;
+							 y.width=t1+'%';
+							 y.left=50-t1/2+'%';
+							 if(t>=230)
+							 {
+							 x=0;
+							 t=40;t1=100;
+							 }
+							 anime(run);
+							 }
+							 anime(run);
+							 </script>
+							 
