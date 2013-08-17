@@ -1,0 +1,87 @@
+<html>
+<body onkeypress='stop()'>
+<div style='position:absolute;width:98%;height:98%;overflow:hidden'>
+<img id='back' src='game2.jpg' style='position:absolute;width:100%;height:100%'></img></div>
+</body>
+<div id='main' style='position:absolute;width:98%;height:98%;overflow:hidden;'>
+<!--img src='tree.gif' id='box0' style='height:2%;width:1%;position:absolute;top:10%;left:30%;'-->
+</div>
+<script>
+var i=0;var pause=0;var count;length=0;var a=[];
+var anime=window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+							 //var large=document.getElementById('box').style;
+							 //var h=parseFloat(large.height); var w=parseFloat(large.width);
+							 //var x=parseFloat(large.top)+h/2;var y=parseFloat(large.left)+ w/2;
+							 
+							 var c=2;var we=0;var expand;
+ function update()
+{
+var v=document.getElementById('back').style;
+v.width=100+we+"%";
+v.height=100+we+"%";
+v.left=-we/2+"%";
+v.top=0+"%";
+if(we<0.2)
+expand=1;
+if(we>50)
+expand=0;
+if(expand==1)
+we+=0.5;
+else
+we-=0.6;
+if(i%50==0)
+{
+if(i<900)
+create_tree();
+}
+for(c=0;c<length;c++)
+{
+a[c][7]=a[c][3]-a[c][4]/a[c][8];
+var xe=document.getElementById('tree'+c).style;
+var col=a[c][4]/a[c][3];
+a[c][2]+=col*a[c][6];  //zooming about the center
+a[c][1]+=a[c][6];
+xe.width=a[c][1]+"%";
+xe.height=a[c][2]+"%";
+xe.left=a[c][4]-a[c][1]/2+"%";
+xe.top=a[c][3]-a[c][2]/2+"%";
+//end of zooming
+a[c][3]+=a[c][5]; //shifting the center
+a[c][4]=(a[c][3]-a[c][7])*a[c][8];
+a[c][5]+=a[c][9];
+}
+i++;
+if(pause==0)
+{
+anime(update);
+}
+}
+function stop()
+{
+if(pause==0)
+pause=1;
+else
+pause=0;
+anime(update);
+}
+anime(update);
+function create_tree()
+{
+var x=document.createElement('img');
+x.id='tree'+length;
+x.src='fences.png';
+var y=x.style;
+y.height='2%';y.width='1%';y.position='absolute';y.top='10%';y.left='30%';
+document.getElementById('main').appendChild(x);
+var x=document.createElement('img');
+
+length=a.push([0,10,10,10,47,0.3,0.8,0,-0.2,0.05,1]);
+x.id='tree'+length;
+x.src='fences1.png';
+var y=x.style;
+y.height='2%';y.width='1%';y.position='absolute';y.top='10%';y.left='55%';
+document.getElementById('main').appendChild(x); 
+length=a.push([0,10,20,10,60,0.3,0.6,0,0.4,0.05,1]);
+}
+</script>
