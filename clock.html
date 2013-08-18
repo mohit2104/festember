@@ -1,0 +1,93 @@
+<html>
+<script>
+function f()
+{
+var ip=0,jp=0;var xp="ones upon a time ,there used to be a clock tower at nit trichy";
+var x=document.getElementById('s1');
+var x1=document.getElementById('s2');
+var x3=document.getElementById('s3');
+var x4=document.getElementById('clock');
+var y=0;var y1=0;var y2=0;var y4=0;
+var anime=window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+							  
+function animate()
+{
+if(y<40)
+{
+
+x.style.height=y+'%';
+y+=1;
+anime(animate);
+}
+else
+anime(animate1);
+}
+function animate1()
+{
+if(y1<15)
+{
+
+x1.style.width=y1+'%';
+y1+=0.75;
+anime(animate1);
+}
+else
+anime(animate2);
+}
+function animate2()
+{
+if(y2<60)
+{
+
+x3.style.height=y2+'%';
+y2+=1;
+anime(animate2);
+}
+else anime(animate3);
+}
+function animate3()
+{
+if(y4<1)
+{
+
+x4.style.opacity=y4+'';
+y4+=0.005;
+anime(animate3);
+}
+}
+function write_story()
+{
+if(jp%5==0)
+{
+document.getElementById('wel').innerHTML+=xp[ip];
+ip++;
+}jp++;
+if (ip!=xp.length)
+anime(write_story);
+else
+anime(animate);
+}
+write_story();
+document.getElementById('horror').play();
+}
+
+</script>
+<body onload='f()' bgcolor='black'>
+
+//<img src='stack4.gif' style='position:absolute;bottom:0%;width:100%;height:60%;left:0%;opacity:0.5'></img>
+<div id='s1' style='width:3px;background:white;position:absolute;bottom:40%;left:60%'></div>
+<div id='s2' style='height:3px;background:white;position:absolute;top:21%;left:60%''></div>
+<div id='s3' style='width:3px;background:white;position:absolute;top:21%;left:74%'></div>
+<img src='http://www.festember.com/13/images/bat.gif' id='bat1'></img>
+<img src='http://www.festember.com/13/images/bat.gif' id='bat2'></img>
+<img src='http://www.festember.com/13/images/bat.gif' id='bat3'></img>
+<div id='wel' style='color:white;
+font-family:cursive;
+font-size:30px;width:500px;
+font-weight:700;'></div>
+<iframe scrolling="no" id='clock' frameborder="0" style="position:absolute;left:62%;top:23%;opacity:0;overflow:hidden;border:0;margin:0;padding:0;width:150px;height:;" src="http://www.clocklink.com/html5embed.php?clock=002&timezone=ISD&color=black&size=150"></iframe>
+<audio src='samara.mp3' id='horror'>
+</body>
+</html>
+							  
