@@ -1,15 +1,18 @@
 <html>
-<body onkeypress='stop()'>
+<script src='mohit.js'></script>
+<body onkeypress='stop(event)'>
 <div style='position:absolute;width:98%;height:98%;overflow:hidden'>
-<img id='back' src='back2.png' style='position:absolute;width:100%;height:100%'></img></div>
+<img id='back' src='bak2.png' style='position:absolute;width:100%;height:100%'></img></div>
+<audio src='gold.mp3' id='coin_music'></audio>
 </body>
 <div id='main' style='position:absolute;width:98%;height:98%;overflow:hidden;'>
 <!--img src='tree.gif' id='box0' style='height:2%;width:1%;position:absolute;top:10%;left:30%;'-->
-<img src='back3.png' style='position:absolute;width:200%;height:400%;left:-50%;'>
-<img src='back2.png' style='position:absolute;opacity:1' id='back1'>
-<img src='back2.png' style='position:absolute;width:40%;left:30%;opacity:1;box-shadow:5px 5px 5px rgb(0,0,0,0,6);opacity:0.7' id='back2'>
-<img src='back3.png' style='position:absolute;width:150%;height:150%;left:-25%'>
+<img src='bak3.png' style='position:absolute;width:200%;height:400%;left:-50%;'>
+<img src='bak2.png' style='position:absolute;opacity:1' id='back1'>
+<img src='bak2.png' style='position:absolute;width:40%;left:30%;opacity:1;box-shadow:5px 5px 5px rgb(0,0,0,0,6);opacity:0.7' id='back2'>
+<img src='bak3.png' style='position:absolute;width:150%;height:150%;left:-25%'>
 </div>
+<div id='zombie' style='background:yellow;height:20%;width:10%;border-radius:50%;position:absolute;top:60%;left:50%;'><div>
 <script>
 var i=0;var pause=0;var count;length=0;var a=[];
 var anime=window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -18,7 +21,7 @@ var anime=window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 							 //var h=parseFloat(large.height); var w=parseFloat(large.width);
 							 //var x=parseFloat(large.top)+h/2;var y=parseFloat(large.left)+ w/2;
 							 
-							 var c=2;var we=0;var expand;var crea=0;var tor=20; var tor1=100;var xor=0;
+							 var c=2;var we=0;var expand;var crea=0;var tor=20; var tor1=100;var xor=0;var animat=0;var count_stone=0;var creat=0;
 							
  function update()
 {
@@ -72,6 +75,20 @@ if(crea==1)
 if(i%3==0)
 create_coin();
 }
+
+if(i%200==0)
+{
+if(creat==1)
+creat=0;
+else
+creat=1;
+}
+if(creat==0)
+{
+if(i%40==0)
+create_stone();
+}
+
 for(c=0;c<length;c++)
 {
 a[c][7]=a[c][3]-a[c][4]/a[c][8];
@@ -87,6 +104,19 @@ xe.top=a[c][3]-a[c][2]/2+"%";
 a[c][3]+=a[c][5]; //shifting the center
 a[c][4]=(a[c][3]-a[c][7])*a[c][8];
 a[c][5]+=a[c][9];
+if(a[c][0]==1)
+{ 
+
+if(a[c][3]>65&&a[c][3]<80&&((a[c][4]-cpc)<11)&&((a[c][4]-cpc)>-1)&&animat==0)
+{
+var sound=document.getElementById('coin_music');
+sound.currentTime=0;
+sound.play();
+a[c][5]=0-2*a[c][5];
+a[c][8]=0.3;
+a[c][9]=0.2;
+} 
+}
 }
 i++;
 if(pause==0)
@@ -94,13 +124,42 @@ if(pause==0)
 anime(update);
 }
 }
-function stop()
+var cpc=50;
+function stop(k)
+{
+/*if(k.which==97||k.keycode==97)
 {
 if(pause==0)
 pause=1;
 else
 pause=0;
 anime(update);
+}
+else
+{  */
+if((k.which==97||k.keycode==97)&&cpc>30)
+{
+cpc-=3;
+document.getElementById('zombie').style.left=cpc+'%';
+}
+else if((k.which==100||k.keycode==100)&&cpc<70)
+{
+cpc+=3;
+document.getElementById('zombie').style.left=cpc+'%';
+}
+else
+{
+if(animat==0)
+{
+animat=1;
+$('#zombie').animate({top:'20%'},500).animate({top:'60%'},700,reverse_animate);
+}
+}
+
+}
+function reverse_animate()
+{
+animat=0;
 }
 anime(update);var airr=[0,0,0,0,0,0,0,0,0];var count_coin=0;
 function create_coin()
@@ -116,11 +175,11 @@ y.height='2%';y.width='1%';y.position='absolute';y.top='10%';y.left='30%';
 document.getElementById('main').appendChild(x);
 var xq=Math.floor(Math.random()*3);
 
-length=a.push([0,2,2,10,52,0.5,0.1,0,-0.1,0.3,1]);
+length=a.push([1,2,2,10,52,0.5,0.1,0,-0.1,0.5,1]);
 }
 else
 {
-a[airr[(count_coin++%9)]]=[0,2,2,10,52,0.5,0.1,0,-0.1,0.3,1];
+a[airr[(count_coin++%9)]]=[1,2,2,10,52,0.5,0.1,0,-0.1,0.5,1];
 }
 //else if(xq%3==3)
 //length=a.push([0,2,2,10,51,0.5,0.1,0,-0.03,0.3,1]);
@@ -154,5 +213,30 @@ else
 a[aitt[(tree_count++%12)]]=[0,10,20,10,48,0.3,0.6,0,-0.3,0.05,1];
 a[aitt[(tree_count++%12)]]=[0,10,20,10,60,0.3,0.6,0,0.4,0.05,1];
 }
+}
+var airt=[0,0,0,0];
+function create_stone()
+{
+airt[count_stone++]=length;
+if(count_stone<4)
+{
+var x=document.createElement('img');
+x.id='tree'+length;
+x.src='stone.jpg';
+var y=x.style;
+y.height='2%';y.width='1%';y.position='absolute';y.top='10%';y.left='30%';
+document.getElementById('main').appendChild(x);
+var xq=Math.floor(Math.random()*3);
+
+length=a.push([2,10,10,10,50,0.1,0.2,0,-0.01,0.1,0]);
+}
+else
+{
+a[airt[(count_stone++%9)]]=[2,10,10,10,50,0.01,0.2,0,0.01,0.1,0];
+}
+//else if(xq%3==3)
+//length=a.push([0,2,2,10,51,0.5,0.1,0,-0.03,0.3,1]);
+//else 
+//length=a.push([0,2,2,10,49,0.5,0.1,0,0.2,0.3,1]);
 }
 </script>
