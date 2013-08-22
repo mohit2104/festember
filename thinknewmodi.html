@@ -1,0 +1,132 @@
+<html>
+
+<head>
+
+<script src='mohit.js'></script>
+
+<script>
+var a=[[2700,52,20],[3400,10,6]];var ipc=0;
+var x=720;var h=10;var t=0;var move=true;var y=1340;var i=0;var r=1;var io=0; var h1 ;var h2;var lc=88;var down=50;var r1=0;
+/*function createfood()
+{
+for(var vr=1;vr<3;vr++)
+{
+h1=Math.floor((Math.random()*1340));
+var yw=document.createElement('div');
+yw.id='ball'+io;
+var tmp=yw.style;
+tmp.width='10px';tmp.height='10px';tmp.borderRadius='60%';tmp.backgroundColor='lightblue';tmp.position='absolute';tmp.top='0px';tmp.left=h1+'px';
+document.getElementById('ball').appendChild(yw); 
+$('#'+yw.id).animate({top:lc+'%'},4000).animate({width:'20px',height:'8px'},400);
+io++;  
+}
+} */
+/*function height()
+{
+lc=lc-1;
+}
+function height1()
+{
+ var lj=setInterval(height,20000);
+}
+height1();
+function seti()
+{
+ var lm=setInterval(createfood,150);
+}
+seti();
+function rate()
+{
+if(ip-50>0)
+var lv=ip-50;
+else
+var lv=0;
+for(var jh=lv;jh<ip;jh++)
+{
+var lp=parseFloat(document.getElementById('ball'+jh).style.left);var lt=parseFloat(document.getElementById('ball'+jh).style.top)+5;
+if(lt<600)
+document.getElementById('ball'+jh).style.left=lp+'px';document.getElementById('ball'+jh).style.top=lt+'px';
+
+}}	*/
+
+var r=0;down=a[0][1];
+function f()
+{
+
+x-=90;h+=20;t=t-5;y=y-20;
+if(a[ipc][0]<h)
+{
+ipc++;
+down=a[ipc][1];
+//up=a[ipc][2];
+}
+if(x==0)
+x=720;
+if(move==true)
+document.getElementById('main').style.backgroundPosition=x+"px 0px";
+if(h<2000)
+{
+document.getElementById('wood').style.backgroundPosition=-h+'px';
+}
+else 
+{
+r=r-20;
+document.getElementById('wood').style.left=r+'px';
+if(r==-700)
+;
+
+r1=r1+30;
+document.getElementById('wood1').style.left=1340-r1+'px';
+document.getElementById('wood1').style.width=r1+'px';
+}
+document.getElementById('no'+i).style.left=y+'px';
+document.getElementById('background').style.backgroundPosition=t+"px 0px";
+if(y<-100)
+{
+y=1340;
+create_enemy();
+}}
+function run()
+{
+var l=setInterval(f,40);
+}
+run();
+function up(k)
+{
+
+if(move==true )
+{
+move=false;
+$("#main").animate({top:"22%"},500).animate({top:down+"%"},500,function(){move=true});}
+else
+{
+$("#main").stop(true);
+$("#main").animate({top:"12%"},500).animate({top:down+"%"},500,function(){move=true});}}
+function create_enemy()
+{
+i++;
+var y=document.createElement('img');
+y.id='no'+i;
+y.src='enemy3.png';
+y.style.position='absolute';
+y.style.top='55%';
+y.style.left='90%';
+document.getElementById('emeny_zone').appendChild(y);
+}
+</script>
+</head>
+<body onkeypress='up(event)'>
+<div id='emeny_zone' style='position:absolute;top:67%;width:100%;'></div>
+
+<img id='background' style='opacity:0.3;position:absolute;top:0%;left:0%;background:url("background.jpg");height:100%;width:100%;'>
+<img id='main'  style='background:url("walk.png");height:200px;width:90px;position:absolute;background-border:0px;top:50%;left:20%;'> 
+<img id='wood'  style='background:url("wood.jpg");height:20%;width:100%;position:absolute;top:80%;'> 
+<img id='wood1' style='background:url("wood.jpg");height:15%;width:100%;position:absolute;top:40%;left:100%;width:0%;'>
+<div id='ball' style='overflow:hidden;width:100%;height:90%;position:absolute;top:0px;left:0px;'></div>
+<audio src='sau_baras_piano.mp3' id='backmusic'>
+</body>
+<script>
+document.getElementById('backmusic').play();
+create_enemy();
+</script>
+</html>
