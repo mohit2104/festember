@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#div1
+{
+position: absolute;
+top:-100px;
+left:-100px;
+height: 150px;
+width: 150px;
+
+
+perspective:150;
+-webkit-perspective:140; /* Safari and Chrome */
+}
+
+#div2
+{
+position: absolute;
+
+background-color: red;
+transform: rotateX(45deg);
+-webkit-transform: rotateX(20deg); /* Safari and Chrome */
+
+}
+</style>
+<script>
+var x=0;var tr=10;var aw=-100;var bo=0;var a=[],length=0;
+var anime=window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+function run()
+{
+
+for(var c=0;c<length;c++)
+{
+a[c][7]=a[c][3]-a[c][4]/a[c][8];
+var xe=document.getElementById('tree'+c).style;
+var col=a[c][4]/a[c][3];
+a[c][2]+=col*a[c][6];  //zooming about the center
+a[c][1]+=a[c][6];
+xe.width=a[c][1]+"%";
+xe.height=a[c][2]+"%";
+xe.left=a[c][4]-a[c][1]/2+"%";
+xe.top=a[c][3]-a[c][2]/2+"%";
+//end of zooming
+a[c][3]+=a[c][5]; //shifting the center
+a[c][4]=(a[c][3]-a[c][7])*a[c][8];
+a[c][5]+=a[c][9];
+if(a[c][0]==1)
+{ 
+
+/*if(a[c][3]>65&&a[c][3]<80&&((a[c][4]-cpc)<11)&&((a[c][4]-cpc)>-1)&&animat==0)
+{
+var sound=document.getElementById('coin_music');
+sound.currentTime=0;
+sound.play();
+a[c][5]=0-2*a[c][5];
+a[c][8]=0.3;
+a[c][9]=0.2;
+} */ 
+}
+}
+
+if(tr%10==0)
+create_coin();
+x=x+1;tr+=1;aw+=2;bo-=1;
+//document.getElementById('div2').style.borderRadius=bo+'%';
+//document.getElementById('div1').style.left=aw+'px';
+document.getElementById('div2').style.backgroundPosition='0px '+x+'px';
+if(tr<100)
+document.getElementById('div2').style.webkitTransform='rotateX('+tr+'deg)';
+anime(run);
+}
+function turn_left()
+{
+if(te<50)
+document.getElementById('div2').style.borderRadius=(te++)+'%';
+if(tm<100)
+document.getElementById('div1').style.left=aw+'px';
+}
+function straight()
+{
+
+}
+anime(run);
+var airr=[0,0,0,0,0,0,0,0,0];var count_coin=0;
+function create_coin()
+{
+airr[count_coin++]=length;
+if(count_coin<10)
+{
+var x=document.createElement('img');
+x.id='tree'+length;
+x.src='coin2.png';
+var y=x.style;
+y.height='2%';y.width='1%';y.position='absolute';y.top='10%';y.left='30%';
+document.getElementById('main').appendChild(x);
+var xq=Math.floor(Math.random()*3);
+
+length=a.push([1,2,2,1,12,0.1,0.1,0,1,0.1,1]);
+}
+else
+{
+a[airr[(count_coin++%9)]]=[1,2,2,1,12,0.1,0.1,0,1,0.1,1];
+}
+}
+</script>
+</head>
+
+<body>
+<img src='sky2.jpg' style='height:130%;width:100%;position:absolute;top:-15%;left:0%;'> 
+<div id="div1">
+  <img style='background:url("back8.png");width:1400%;height:400%;border-radius:0%;' id="div2"></img>
+</div>
+ <div id='main' style='position:absolute;width:100%;height:100%;'></div>
+</body>
+</html>
