@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src='mohit.js'></script>
+<audio src='gold.mp3' id='coin_music'></audio>
 <style>
 #div1
 {
@@ -26,7 +28,8 @@ transform: rotateX(45deg);
 }
 </style>
 <script>
-var x=0;var tr=10;var aw=-100;var bo=0;var a=[],length=0;
+
+var x=0;var tr=10;var aw=-100;var bo=0;var a=[],length=0;var animat=0;var crea=0;var set=0;
 var anime=window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 function run()
@@ -50,7 +53,7 @@ a[c][5]+=a[c][9];
 if(a[c][0]==1)
 { 
 
-/*if(a[c][3]>65&&a[c][3]<80&&((a[c][4]-cpc)<11)&&((a[c][4]-cpc)>-1)&&animat==0)
+if(a[c][3]>65&&a[c][3]<80&&((a[c][4]-cpc)<11)&&((a[c][4]-cpc)>-1)&&animat==0)
 {
 var sound=document.getElementById('coin_music');
 sound.currentTime=0;
@@ -58,16 +61,43 @@ sound.play();
 a[c][5]=0-2*a[c][5];
 a[c][8]=0.3;
 a[c][9]=0.2;
-} */ 
+}  
 }
 }
 
+if(tr%50==0)
+{
+if(crea==1)
+crea=0;
+else
+crea=1;
+}
+if(crea==1)
+{
+if(tr%3==0)
+{
+create_coin();}
+if(tr%5==0)
+{
+if(set==1)
+{
+document.getElementById('zombie').style.backgroundPosition='150px 0px';
+set=0;
+}
+else
+{
+set=1;
+document.getElementById('zombie').style.backgroundPosition='0px 0px';
+}
+}}
 if(tr%10==0)
-create_coin();
-x=x+1;tr+=1;aw+=2;bo-=1;
+create_stone();
+x=x+5;tr+=1;aw+=2;bo-=1;
 //document.getElementById('div2').style.borderRadius=bo+'%';
 //document.getElementById('div1').style.left=aw+'px';
 document.getElementById('div2').style.backgroundPosition='0px '+x+'px';
+if(x>=95)
+x=0;
 if(tr<100)
 document.getElementById('div2').style.webkitTransform='rotateX('+tr+'deg)';
 anime(run);
@@ -88,7 +118,7 @@ var airr=[0,0,0,0,0,0,0,0,0];var count_coin=0;
 function create_coin()
 {
 airr[count_coin++]=length;
-if(count_coin<10)
+if(count_coin<20)
 {
 var x=document.createElement('img');
 x.id='tree'+length;
@@ -98,21 +128,85 @@ y.height='2%';y.width='1%';y.position='absolute';y.top='10%';y.left='30%';
 document.getElementById('main').appendChild(x);
 var xq=Math.floor(Math.random()*3);
 
-length=a.push([1,2,2,1,12,0.1,0.1,0,1,0.1,1]);
+length=a.push([1,2,2,7,12,0.1,0.1,0,0.9,0.05,1]);
 }
 else
 {
-a[airr[(count_coin++%9)]]=[1,2,2,1,12,0.1,0.1,0,1,0.1,1];
+a[airr[(count_coin++%19)]]=[1,2,2,7,12,0.1,0.1,0,0.9,0.05,1];
 }
+}
+var cpc=50;
+function stop(k)
+{
+/*if(k.which==97||k.keycode==97)
+{
+if(pause==0)
+pause=1;
+else
+pause=0;
+anime(update);
+}
+else
+{  */
+if((k.which==97||k.keycode==97)&&cpc>30)
+{
+cpc-=3;
+document.getElementById('zombie').style.left=cpc+'%';
+}
+else if((k.which==100||k.keycode==100)&&cpc<70)
+{
+cpc+=3;
+document.getElementById('zombie').style.left=cpc+'%';
+}
+else
+{
+if(animat==0)
+{
+animat=1;
+$('#zombie').animate({top:'20%'},500).animate({top:'60%'},700,reverse_animate);
+}
+}
+
+}
+function reverse_animate()
+{
+animat=0;
+}
+var airt=[0,0,0,0];var count_stone=0;
+function create_stone()
+{
+airt[count_stone++]=length;
+if(count_stone<4)
+{
+var x=document.createElement('img');
+x.id='tree'+length;
+x.src='obstacle1.png';
+var y=x.style;
+y.height='2%';y.width='1%';y.position='absolute';y.top='10%';y.left='30%';
+document.getElementById('main').appendChild(x);
+var xq=Math.floor(Math.random()*3);
+
+length=a.push([2,10,10,10,20,0.1,0.2,0,1,0.1,0]);
+}
+else
+{
+a[airt[(count_stone++%9)]]=[2,10,10,10,20,0.01,0.2,0,1,0.1,0];
+}
+//else if(xq%3==3)
+//length=a.push([0,2,2,10,51,0.5,0.1,0,-0.03,0.3,1]);
+//else 
+//length=a.push([0,2,2,10,49,0.5,0.1,0,0.2,0.3,1]);
 }
 </script>
 </head>
 
-<body>
+<body onkeypress='stop(event)'>
 <img src='sky2.jpg' style='height:130%;width:100%;position:absolute;top:-15%;left:0%;'> 
 <div id="div1">
   <img style='background:url("back8.png");width:1400%;height:400%;border-radius:0%;' id="div2"></img>
 </div>
  <div id='main' style='position:absolute;width:100%;height:100%;'></div>
+ <img  id='zombie' style='position:absolute;top:60%;left:50%;-webkit-transform:rotate(-20deg);background:url("zombie2.png");width:150px;height:195px;'></img>
+  
 </body>
 </html>
