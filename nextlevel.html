@@ -58,9 +58,9 @@ if(a[c][3]>65&&a[c][3]<80&&((a[c][4]-cpc)<11)&&((a[c][4]-cpc)>-1)&&animat==0)
 var sound=document.getElementById('coin_music');
 sound.currentTime=0;
 sound.play();
-a[c][5]=0-2*a[c][5];
+a[c][5]=0-3*a[c][5];
 a[c][8]=0.3;
-a[c][9]=0.2;
+a[c][9]=0.1;
 }  
 }
 }
@@ -77,7 +77,13 @@ if(crea==1)
 if(tr%3==0)
 {
 create_coin();}
-if(tr%5==0)
+}
+else
+{
+if(tr%10==0)
+create_stone();
+}
+if(tr%4==0)
 {
 if(set==1)
 {
@@ -89,9 +95,8 @@ else
 set=1;
 document.getElementById('zombie').style.backgroundPosition='0px 0px';
 }
-}}
-if(tr%10==0)
-create_stone();
+}
+
 x=x+5;tr+=1;aw+=2;bo-=1;
 //document.getElementById('div2').style.borderRadius=bo+'%';
 //document.getElementById('div1').style.left=aw+'px';
@@ -148,12 +153,12 @@ anime(update);
 }
 else
 {  */
-if((k.which==97||k.keycode==97)&&cpc>30)
+if((k.which==97||k.keycode==97)&&cpc>40)
 {
 cpc-=3;
 document.getElementById('zombie').style.left=cpc+'%';
 }
-else if((k.which==100||k.keycode==100)&&cpc<70)
+else if((k.which==100||k.keycode==100)&&cpc<85)
 {
 cpc+=3;
 document.getElementById('zombie').style.left=cpc+'%';
@@ -190,7 +195,7 @@ length=a.push([2,10,10,10,20,0.1,0.2,0,1,0.1,0]);
 }
 else
 {
-a[airt[(count_stone++%9)]]=[2,10,10,10,20,0.01,0.2,0,1,0.1,0];
+a[airt[(count_stone++%3)]]=[2,10,10,10,20,0.01,0.2,0,1,0.1,0];
 }
 //else if(xq%3==3)
 //length=a.push([0,2,2,10,51,0.5,0.1,0,-0.03,0.3,1]);
@@ -201,12 +206,13 @@ a[airt[(count_stone++%9)]]=[2,10,10,10,20,0.01,0.2,0,1,0.1,0];
 </head>
 
 <body onkeypress='stop(event)'>
+<div style='position:absolute;height:98%;width:98%;overflow:hidden;'>
 <img src='sky2.jpg' style='height:130%;width:100%;position:absolute;top:-15%;left:0%;'> 
 <div id="div1">
   <img style='background:url("back8.png");width:1400%;height:400%;border-radius:0%;' id="div2"></img>
 </div>
  <div id='main' style='position:absolute;width:100%;height:100%;'></div>
- <img  id='zombie' style='position:absolute;top:60%;left:50%;-webkit-transform:rotate(-20deg);background:url("zombie2.png");width:150px;height:195px;'></img>
-  
+ <img  id='zombie' style='position:absolute;top:60%;left:50%;-webkit-transform:rotate(-10deg);background:url("zombie2.png");width:140px;height:195px;'>
+  </div>
 </body>
 </html>
